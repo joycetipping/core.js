@@ -2,10 +2,11 @@
 //   Helpful utilities for javascript development.
 //
 // Joyce Tipping
-// Date: 12 Jul 2010
-// Version: 0.0.1
+// Date: 21 Dec 2010
+// Version: 0.0.3
 
-var c = {};
+if (typeof c !== 'undefined') var c = {original:c}
+else                          var c = {};
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -15,22 +16,10 @@ var c = {};
 // Trim
 //   Useful functions for trimming whitespace.
 
-String.prototype.trim  = function () { return this.replace (/^\s+|\s+$/g, '').valueOf (); };
-String.prototype.ltrim = function () { return this.replace (/^\s+/g, '').valueOf (); };
-String.prototype.rtrim = function () { return this.replace (/\s+$/g, '').valueOf (); };
+var c.trim  = function (str) { return str.replace (/^\s+|\s+$/g, '').valueOf (); };
+var c.ltrim = function (str) { return str.replace (/^\s+/g, '').valueOf (); };
+var c.rtrim = function (str) { return str.replace (/\s+$/g, '').valueOf (); };
 
-Array.prototype.trim  = function () { var trimmed = []; 
-                                      for (var i = 0, len = this.length; i < len; i++) 
-                                        trimmed[i] = this[i] && this[i].constructor === String ? this[i].trim () : this[i];
-                                      return trimmed; };
-Array.prototype.ltrim = function () { var trimmed = []; 
-                                      for (var i = 0, len = this.length; i < len; i++) 
-                                        trimmed[i] = this[i] && this[i].constructor === String ? this[i].ltrim () : this[i];
-                                      return trimmed; };
-Array.prototype.rtrim = function () { var trimmed = []; 
-                                      for (var i = 0, len = this.length; i < len; i++) 
-                                        trimmed[i] = this[i] instanceof String ? this[i].rtrim () : this[i];
-                                      return trimmed; };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -48,7 +37,7 @@ c.nw = function (type) { var result = document.createElement (type);
 // Get
 //   A shortcut for document.getElementById, with the option to promote into a 'fancy' :
 // c.get = function (id) { var resreturn document.getElementById (id); };
-c.get = function (id) { var result = document.getElementById (id);
+c.getId = function (id) { var result = document.getElementById (id);
                         result.fancy = function () { return c.cr (result); };
                         return result; };
 
@@ -62,16 +51,16 @@ c.get = function (id) { var result = document.getElementById (id);
 //     object containing attributes:        { name:'name', type:'text' }
 //     string:                              'Hello World'
 //     array specifying a child element     ['div', { id:'foo', class:'bar' }, 'Hello World']
-//     DOM node to be appended              my_div
-//     initializer functions:               function () { this.add_text ('Hello World');
-//                                                        var my_div = this.cr ('div');
-//                                                        this.append (my_div);         }
+//     DOM node to be appended              myDiv
+//     initializer functions:               function () { this.addText ('Hello World');
+//                                                        var myDiv = this.cr ('div');
+//                                                        this.append (myDiv);         }
 //  
-//   It adds several useful methods:
-//     attributes                           add_attr
-//     classes                              add_class, set_class
-//     css                                  clear_css, add_css, set_css
-//     text                                 add_text
+//   It adds several useful methods for
+//     attributes                           addAttr
+//     classes                              addClass, setClass
+//     css                                  clearCss, addCss, setCss
+//     text                                 addText
 //     adding children                      append, prepend, cr
 //     misc                                 empty, html
 
@@ -83,26 +72,26 @@ c.cr = function (arg) {
   // METHODS:
   //
   // Attributes
-  result.add_attr  = function (arg) {      if (arg.constructor === Object) for (var k in arg) result[k] = arg[k];
+  result.addAttr  = function (arg) {       if (arg.constructor === Object) for (var k in arg) result[k] = arg[k];
                                       else if (arg.constructor === String) result.setAttribute (arg, arguments[1]);
                                       return result; };
 
   // Classes
-  result.set_class = function () { result.className = Array.prototype.slice.call (arguments).join (' '); return result; };
-  result.add_class = function () { result.className += ' ' + Array.prototype.slice.call (arguments).join (' '); return result; };
+  result.setClass = function () { result.className = Array.prototype.slice.call (arguments).join (' '); return result; };
+  result.addClass = function () { result.className += ' ' + Array.prototype.slice.call (arguments).join (' '); return result; };
 
   // CSS
-  result.clear_css = function ()    { result.setAttribute ('style', ''); return result; };
-  result.add_css   = function (arg) {      if (arg.constructor === Object) for (var k in arg) result.style[k] = arg[k];
+  result.clearCss = function ()    { result.setAttribute ('style', ''); return result; };
+  result.addCss   = function (arg) {      if (arg.constructor === Object) for (var k in arg) result.style[k] = arg[k];
                                       else if (arg.constructor === String) result.setAttribute ('style', result.getAttribute ('style') + ';' + arg);
                                       return result; };
-  result.set_css   = function (arg) { result.clear_css (); 
-                                           if (arg.constructor === Object) result.add_css (arg);
+  result.setCss   = function (arg) { result.clearCss (); 
+                                           if (arg.constructor === Object) result.addCss (arg);
                                       else if (arg.constructor === String) result.setAttribute ('style', arg);
                                       return result; };
 
   // Text
-  result.add_text  = function (str) { result.append (document.createTextNode (str)); return result; };
+  result.addText  = function (str) { result.append (document.createTextNode (str)); return result; };
 
   // Adding children
   result.cr        = function () { return result.append (c.cr.apply (result, arguments)); };
@@ -123,8 +112,8 @@ c.cr = function (arg) {
   // Process command line arguments.
   for (var i = 1, len = arguments.length; i < len; i++) {
     var arg = arguments[i];
-         if (arg.constructor === Object)   result.add_attr (arg);
-    else if (arg.constructor === String)   result.add_text (arg);
+         if (arg.constructor === Object)   result.addAttr (arg);
+    else if (arg.constructor === String)   result.addText (arg);
     else if (arg.constructor === Array)    result.cr.apply (result, arg);
     else if (arg instanceof Node)          result.append (arg);
     else if (arg.constructor === Function) arg.call (result);
@@ -132,7 +121,6 @@ c.cr = function (arg) {
 
   return result;
 };
-
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -159,4 +147,13 @@ c.ajax = function (type, url, handler) {
   return request;
 };
 
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// No conflict
+var c.noConflict = function () {
+  var myC = c;
+  c = c.original;
+  return myC;
+}
+

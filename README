@@ -3,8 +3,8 @@ core.js
 core.js is a collection of useful functions that I have compiled
 from my javascript projects.
 
-At the heart of it is the "create" function, which provides a
-versatile way to create and append dom objects.
+At the heart of it is the create function, "c.cr", which provides
+a versatile way to create and append dom objects.
 
 core.js is, on principle, plain javascript -- no jQuery. This
 ability to stand alone is useful if you can't use jQuery for
@@ -13,5 +13,4 @@ much weaker than their jQuery counterparts, are nice to have.
 
 I'm always tweaking the code in rather drastic ways, so I've
 separated it out into version numbers to preserve some sanity in
-the programs that depend on it. The file "core.js" is always the
-most recent version.
+the programs that depend on it.
