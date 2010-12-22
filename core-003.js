@@ -10,19 +10,6 @@ else                          var c = {};
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// Useful Functions
-//
-
-// Trim
-//   Useful functions for trimming whitespace.
-
-var c.trim  = function (str) { return str.replace (/^\s+|\s+$/g, '').valueOf (); };
-var c.ltrim = function (str) { return str.replace (/^\s+/g, '').valueOf (); };
-var c.rtrim = function (str) { return str.replace (/\s+$/g, '').valueOf (); };
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
 // DOM Maniuplation
 //
 
@@ -146,6 +133,19 @@ c.ajax = function (type, url, handler) {
 
   return request;
 };
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Useful Functions
+//
+
+// Trim
+//   Useful functions for trimming whitespace.
+
+var c.trim  = function (str) { return str.replace (/^\s+|\s+$/g, '').valueOf (); };
+var c.ltrim = function (str) { return str.replace (/^\s+/g, '').valueOf (); };
+var c.rtrim = function (str) { return str.replace (/\s+$/g, '').valueOf (); };
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
