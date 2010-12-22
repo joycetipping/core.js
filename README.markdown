@@ -17,13 +17,13 @@ javascript projects. At its heart is a powerful and useful DOM creation method
 A quick summary of the functions offered:
 
 1. DOM:
-  * new -- `c.nw` -- shortcut for `document.createElement`, with an option to run it through `c.cr` later
-  * getId -- `c.getId` -- shortcut for `document.getElementById`
-  * create -- `c.cr` -- a full-featured DOM element creation function, with options to add attributes, classes, css, text, and children.
+    * new -- `c.nw` -- shortcut for `document.createElement`, with an option to run it through `c.cr` later
+    * getId -- `c.getId` -- shortcut for `document.getElementById`
+    * create -- `c.cr` -- a full-featured DOM element creation function, with options to add attributes, classes, css, text, and children.
 2. Trim functions
-  * trim -- `c.trim` -- trims whitespace from around a string
-  * left trim -- `c.ltrim` -- trims whitespace from before a string
-  * right trime -- `c.rtrim` -- trims whitespace from after a string
+    * trim -- `c.trim` -- trims whitespace from around a string
+    * left trim -- `c.ltrim` -- trims whitespace from before a string
+    * right trime -- `c.rtrim` -- trims whitespace from after a string
 3. Ajax -- `c.ajax` -- a simple function to make an ajax call
 4. No Conflict -- `c.noConflict` -- resets `c` to whatever it was before and passes you back the `core.js` variable `c` for you to store wherever you choose.
 
